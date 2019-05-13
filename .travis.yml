@@ -2,12 +2,19 @@ language: r
 cache: packages
 sudo: required
 dist: trusty
+group: deprecated-2017Q4
 warnings_are_errors: false
 
 r_github_packages:
   - jimhester/robustr
   - jimhester/covr
   - hadley/xml2
+
+install:
+    - bash ci/install_ckan.sh
+services:
+    - redis-server
+    - postgresql
 
 after_success:
   - Rscript -e 'covr::codecov()'
@@ -16,8 +23,7 @@ notifications:
   email:
     on_success: change
     on_failure: change
-  slack:
-    secure: c0GC9qvEjlKNjB694uBIsm+LvfL0kAfa7V41Ctk8i3sNo4pOQerwybOlCZ/foQMx7yke1UmfmWMfxTc35u8g8+8uH9hBGEHuq+PvR4pnqc6EcgJKrdFPn39ruzH7S4UHy/TaAJgkeXyhM+kjQXCJiX8OK74KJFuumH5LvA7PrHY=
 
 env:
   - TEST_DPLYR_INTERFACE=TRUE
+  - CKANVERSION=2.8
