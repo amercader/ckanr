@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "This is install_requirements.sh"
+echo "This is install_ckan.sh"
 
 echo "Installing the packages that CKAN requires..."
 sudo apt-get update -qq
@@ -23,12 +23,12 @@ fi
 if [ -f requirement-setuptools.txt ]
 then
     echo "Updating setuptools..."
-    pip install -r requirement-setuptools.txt
+    sudo pip install -r requirement-setuptools.txt
 fi
 
-python setup.py develop
+sudo python setup.py develop
 
-pip install -r requirements.txt
+sudo pip install -r requirements.txt
 cd -
 
 echo "Setting up Solr..."
