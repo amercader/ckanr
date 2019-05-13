@@ -33,7 +33,7 @@ cd -
 
 echo "Setting up Solr..."
 printf "NO_START=0\nJETTY_HOST=127.0.0.1\nJETTY_PORT=8983\nJAVA_HOME=$JAVA_HOME" | sudo tee /etc/default/jetty
-sudo cp travis/ckan/schema.xml /etc/solr/conf/schema.xml
+sudo cp ci/ckan/schema.xml /etc/solr/conf/schema.xml
 sudo service jetty restart
 
 echo "Creating the PostgreSQL user and database..."
@@ -44,10 +44,12 @@ sudo -u postgres psql -c "CREATE USER datastore_write WITH PASSWORD 'pass' NOSUP
 sudo -u postgres psql -c 'CREATE DATABASE datastore_test WITH OWNER ckan_default;'
 
 echo "Initialising the database..."
-paster db init -c travis/ckan/test-core.ini
+paster db init -c ci/ckan/test-core.ini
 cd -
 
-paster serve travis/ckan/test-core.ini
+paster serve ci/ckan/test-core.ini
+
+sleep 5
 
 curl http://localhost
 
