@@ -44,7 +44,8 @@ sudo -u postgres psql -c "CREATE USER datastore_write WITH PASSWORD 'pass' NOSUP
 sudo -u postgres psql -c 'CREATE DATABASE datastore_test WITH OWNER ckan_default;'
 
 echo "Initialising the database..."
-paster db init -c ci/ckan/test-core.ini
+paster --plugin=ckan db init -c ci/ckan/test-core.ini
+paster --plugin=ckanext-datastore datastore set-permissions -c ci/ckan/test-core.ini | sudo -u postgres psql
 cd -
 
 paster serve ci/ckan/test-core.ini
