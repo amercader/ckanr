@@ -25,5 +25,4 @@ notifications:
     on_failure: change
 
 env:
-  - TEST_DPLYR_INTERFACE=TRUE
-  - CKANVERSION=2.8
+  - TEST_DPLYR_INTERFACE=TRUE CKANVERSION=2.8
